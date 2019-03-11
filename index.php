@@ -1,3 +1,38 @@
+
+<?php
+
+$str = !empty($_REQUEST['DATABASE_NAME']) ? $_REQUEST['DATABASE_NAME'] : '';
+#$str = !empty($_post['DATABASE_NAME']) ? $_post['DATABASE_NAME'] : ''; #post 방식에서 DB명을 가져옴
+#$str = $_POST['DATABASE_NAME'];
+if ($str != null){ $result = "DB : {$str} ";
+} else { $result = "DB명을 입력해주세요";
+}
+?>
+<!DOCTYPE html>
+<head>
+ <html lang="ko">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>DB Compare</title>
+</head>
+
+<body>
+<div><?php echo $result; ?></div>
+<!--
+<style type="text/css" media="all">
+        @import url("public/css/style.css");
+    </style> 
+-->
+<form method="post" action="./index.php">
+<input type="text" name="DATABASE_NAME" placeholder="입력">
+<!--<form method="get" action="./environment.php">
+<input type="text" name="DATABASE_NAME">
+<!-- <input type="text" name="DATABASE_NAME_SECONDARY"> -->
+ <input type="submit" value="확인"/>
+</form>
+</body>
+</html>
+
+
 <?php
 require_once 'config.php';
 
@@ -61,4 +96,3 @@ try {
 } catch (Exception $e) {
     include_once TEMPLATE_DIR . 'error.php';
 }
-

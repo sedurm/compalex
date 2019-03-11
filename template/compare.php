@@ -18,7 +18,7 @@
 </div>
 
 <div class="compare-database-block">
-    <h1>Compalex</h1>
+    <h1>COMPALEX - database schema compare tool</h1>
 
     <h3>Database schema compare tool</h3>
     <table class="table">
@@ -40,29 +40,35 @@
 
                 if (!isset($_REQUEST['action'])) $_REQUEST['action'] = 'tables';
                 foreach ($buttons as $li) {
-                    echo '<a href="index.php?action=' . $li . '"  ' . ($li == $_REQUEST['action'] ? 'class="active"' : '') . '>' . $li . '</a>&nbsp;';
-                }
+                #    echo '<a href="index.php?action=' . $li . '"  ' . ($li == $_REQUEST['action'] ? 'class="active"' : '') . '>' . $li . '</a>&nbsp;';
+                    echo '<a href="index.php?DATABASE_NAME=' . $str . '&action=' . $li . ' "  ' . ($li == $_REQUEST['action'] ? 'class="active"' : '') . '>' . $li . '</a>&nbsp;'; // array에 해당하는 버튼 클릭시 입력된 Database Name과 함께 물려서 동작함
+
+
+				}
                 ?>
 
             </td>
             <td class="sp">
-                <a href="#" onclick="Data.showAll(this); return false;" class="active">all</a>
+				<a href="#" onclick="Data.showAll(this); return false;" class="active">all</a>
                 <a href="#" onclick="Data.showDiff(this); return false;">changed</a>
-
-            </td>
+				</td>
+			
+			
         </tr>
     </table>
     <table class="table">
         <tr class="header">
             <td width="50%">
-                <h2><?php echo DATABASE_NAME ?></h2>
-                <span><?php $spath = explode("@", FIRST_DSN);
-                    echo end($spath); ?></span>
+                <h2><?php echo $_REQUEST['DATABASE_NAME'] ?></h2>
+                <span><?php echo DATABASE_DESCRIPTION ?></span>
+              <span><?php $spath = explode("@", FIRST_DSN);
+              #      echo end($spath); ?></span>
             </td>
             <td  width="50%">
-                <h2><?php echo DATABASE_NAME_SECONDARY ?></h2>
+                <h2><?php echo $_REQUEST['DATABASE_NAME'] ?></h2>
+                <span><?php echo DATABASE_DESCRIPTION_SECONDARY ?></span>
                 <span><?php $spath = explode("@", SECOND_DSN);
-                    echo end($spath); ?></span>
+                #    echo end($spath); ?></span>
             </td>
         </tr>
     <?php foreach ($tables as $tableName => $data) { ?>
@@ -93,7 +99,7 @@
                 <?php } ?>
                 <?php if (count($data[$blockType]) && in_array($_REQUEST['action'], array('tables', 'views'))) { ?><a
                     target="_blank"
-                    onclick="Data.getTableData('index.php?action=rows&baseName=<?php echo $basesName[$blockType]; ?>&tableName=<?php echo $tableName; ?>'); return false;"
+		            onclick="Data.getTableData('index.php?action=rows&baseName=<?php echo $basesName[$blockType]; ?>&tableName=<?php echo $tableName; ?>'); return false;"
                     href="#" class="sample-data">Sample data (<?php echo SAMPLE_DATA_LENGTH; ?> rows)</a><?php } ?>
             </td>
             <?php } ?>

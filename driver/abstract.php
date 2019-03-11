@@ -47,7 +47,7 @@ abstract class BaseDriver
     }
 
 
-    protected function _getCompareArray($query, $diffMode = false, $ifOneLevelDiff = false)
+      protected function _getCompareArray($query, $diffMode = false, $ifOneLevelDiff = false)
     {
 
         $out = array();
@@ -157,7 +157,7 @@ abstract class BaseDriver
                 break;
             case "pgsql":
             case "mysql":
-                $query = 'SELECT * FROM ' . $tableName . ' LIMIT ' . $rowCount;
+                $query = 'SELECT * FROM ' . $baseName .'.'. $tableName . ' LIMIT ' . $rowCount; #sample row $baseName 추가 .'.'. $tablename으로 연결
                 break;
 
         }
